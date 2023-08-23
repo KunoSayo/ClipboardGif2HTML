@@ -6,14 +6,16 @@ fn main() -> Result<(), u32> {
     let _clipboard = Clipboard::new()
         .expect("Get clipboard failed");
 
+
     let format = 'l: {
-        for x in [49447].into_iter().chain(clipboard_win::EnumFormats::new()) {
+        for x in clipboard_win::EnumFormats::new() {
             if let Some(name) = format_name(x) {
                 if name == "HTML Format" {
                     break 'l x;
                 }
             }
         }
+        eprintln!("Cannot get HTML Format from clipboard");
         return Err(100);
     };
 
@@ -28,12 +30,15 @@ fn main() -> Result<(), u32> {
                     .expect("Set clipboard failed");
                 Ok(())
             } else {
+                eprintln!("File path not ends with gif");
                 Err(2)
             }
         } else {
+            eprintln!("Too many files");
             Err(3)
         }
     } else {
+        eprintln!("Clipboard data not file");
         Err(1)
     }
 }
