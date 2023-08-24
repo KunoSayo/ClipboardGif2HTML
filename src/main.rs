@@ -8,13 +8,17 @@ fn main() -> Result<(), u32> {
 
 
     let format = 'l: {
-        for x in clipboard_win::EnumFormats::new() {
+        for x in [49447, 49448, 49449].into_iter().chain(clipboard_win::EnumFormats::new()) {
             if let Some(name) = format_name(x) {
                 if name == "HTML Format" {
+                    println!("Got HTML Format for number {}", x);
                     break 'l x;
+                } else {
+                    println!("{x}: {name}")
                 }
             }
         }
+
         eprintln!("Cannot get HTML Format from clipboard");
         return Err(100);
     };
