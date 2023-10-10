@@ -8,7 +8,7 @@ fn main() -> Result<(), u32> {
 
 
     let format = 'l: {
-        for x in (49400..49500).into_iter().chain(clipboard_win::EnumFormats::new()) {
+        for x in (40000..50001).into_iter().chain(clipboard_win::EnumFormats::new()) {
             if let Some(name) = format_name(x) {
                 if name == "HTML Format" {
                     println!("Got HTML Format for number {}", x);
